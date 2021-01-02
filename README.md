@@ -3,8 +3,6 @@ Speech recognition assistant based on mozilla DeepSpeech. The little program is 
 
 For the sound recording the usage of a PS3 Eye camera is hard coded.
 
-I want to thank the @DeepSpeech project, @AASHISHAG and the @tradokk team for providing all the parts. Making it so easy to setup a speech recognition in the meanwhile.
-
 ## Links & References
 
 **Deepspeech Project:** https://github.com/mozilla/DeepSpeech
@@ -14,3 +12,7 @@ I want to thank the @DeepSpeech project, @AASHISHAG and the @tradokk team for pr
 **Tradokk Example Code:** https://tradokk.com/echtzeit-spracherkennung-mit-deepspeech/
 
 **Using the PS3 Eye Camera:** https://www.cnx-software.com/2019/08/30/using-sony-ps3-eye-camera-as-an-inexpensive-microphone-array/
+
+## Acknowledgements
+
+I want to thank the [Mozilla DeepSpeech](https://github.com/mozilla/DeepSpeech) project, [AASHISHAG](https://github.com/AASHISHAG) and the [Tradokk team](https://tradokk.com) for providing all the parts. Making it so easy to setup a speech recognition in the meanwhile.
