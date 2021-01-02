@@ -1,5 +1,5 @@
 # pi_assistant
-Speech recognition assistant based on deepspeech. The little program is derived from the example speech2text code published on the Tradokk web site. I've added a logic to cut of the sound buffer if there is no new text recognized after 2 seconds. This is tested mainly with the German language model created by Aashish Agarwal, but it should work with any other model in the same way. Currently only the continuous speech recognition is implmented. Any logik to compute the input is totally lacking.
+Speech recognition assistant based on deepspeech. The little program is derived from the example speech2text code published on the Tradokk web site. I've added a logic to cut of the sound buffer if there is no new text recognized after 2 seconds. This is tested mainly with the German language model created by Aashish Agarwal, but it should work with any other model in the same way. Currently only the continuous speech recognition is implemented. Any logik to compute the input and to transform it in any useful action is totally lacking.
 
 For the sound recording the usage of a PS3 Eye camera is hard coded.
 
