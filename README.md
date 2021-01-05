@@ -3,6 +3,8 @@ Speech recognition assistant based on mozilla DeepSpeech. The little program is 
 
 For the sound recording the usage of a PS3 Eye camera is hard coded.
 
+For the german deepspeech language model the fixed tflite file created by **koh-osug** is needed: https://github.com/AASHISHAG/deepspeech-german/issues/29#issuecomment-744798408
+
 ## Links & References
 
 **Deepspeech Project:** https://github.com/mozilla/DeepSpeech
