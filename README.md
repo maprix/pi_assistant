@@ -13,6 +13,15 @@ For the sound recording the usage of a PS3 Eye camera is hard coded.
 
 **Using the PS3 Eye Camera:** https://www.cnx-software.com/2019/08/30/using-sony-ps3-eye-camera-as-an-inexpensive-microphone-array/
 
+## Installation Pico TTS
+
+On Respbery PI OS Buster the Pico TTS packages are not available. They can be installed from the Debian Buster repository. 
+```console
+wget http://ftp.us.debian.org/debian/pool/non-free/s/svox/libttspico0_1.0+git20130326-9_armhf.deb
+wget http://ftp.us.debian.org/debian/pool/non-free/s/svox/libttspico-utils_1.0+git20130326-9_armhf.deb
+sudo apt-get install -f ./libttspico0_1.0+git20130326-9_armhf.deb ./libttspico-utils_1.0+git20130326-9_armhf.deb
+```
+
 ## Acknowledgements
 
 I want to thank the [Mozilla DeepSpeech](https://github.com/mozilla/DeepSpeech) project, [AASHISHAG](https://github.com/AASHISHAG) and the [Tradokk team](https://tradokk.com) for providing all the parts. Making it so easy to setup a speech recognition in the meanwhile.

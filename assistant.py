@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import os
+import subprocess
 import pyaudio
 import deepspeech
 import numpy as np
@@ -12,11 +14,13 @@ from queue import SimpleQueue
 BUFFERS_PER_SECOND = 10
 SAMPLE_WIDTH = 2
 BEAM_WIDTH = 512
+LANG='de-DE'
 
-#switch between tensorflow and tensorflow light model
-#MODEL_PATH = 'deepspeech-0.8.1-models.tflite'
-MODEL_PATH = 'models/de/output_graph.tflite'
-SCORER_PATH = 'models/de/kenlm.scorer'
+#switch between English and German model
+#MODEL_PATH = 'models/en/deepspeech-0.9.3-models.tflite'
+#SCORER_PATH = 'models/en/deepspeech-0.9.3-models.scorer'
+MODEL_PATH = 'models/de/AASHISHAG/release_v0.9.0/output_graph.tflite'
+SCORER_PATH = 'models/de/AASHISHAG/release_v0.9.0/kenlm.scorer'
 
 buffer_queue = SimpleQueue()
 
@@ -35,6 +39,13 @@ def find_device(pyaudio, device_name):
             return (i, name)
     return (default['index'], default['name'])
 
+def say(text, language='en-GB', file='output.wav'):
+    p = subprocess.Popen(['pico2wave -l ' + language + ' -w ' + file + ' "' + text + '" && aplay -q ' + file], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    (output, err) = p.communicate()
+    if err:
+        print(err)
+    #This makes the wait possible
+    p_status = p.wait()
 
 def main():
     model = deepspeech.Model(MODEL_PATH)
@@ -44,18 +55,17 @@ def main():
     stream = model.createStream()
 
     audio = pyaudio.PyAudio()
-    #index, name = find_device(audio, 'pulse')
     index, name = find_device(audio, 'cap') # use cap stream from PS3 cam as defined in /etc/asound.conf
 
     buffer_size = model.sampleRate() // BUFFERS_PER_SECOND
     audio_stream = audio.open(rate=model.sampleRate(),
-                              channels=1,
-                              format=audio.get_format_from_width(
-                                  SAMPLE_WIDTH, unsigned=False),
-                              input_device_index=index,
-                              input=True,
-                              frames_per_buffer=buffer_size,
-                              stream_callback=audio_callback)
+                            channels=1,
+                            format=audio.get_format_from_width(
+                                SAMPLE_WIDTH, unsigned=False),
+                            input_device_index=index,
+                            input=True,
+                            frames_per_buffer=buffer_size,
+                            stream_callback=audio_callback)
 
     num_iterations = BUFFERS_PER_SECOND * 1
     i = 0
@@ -77,9 +87,12 @@ def main():
             if samecount >= 1:
                 samecount = 0
                 textold = ''
-                result_text = stream.finishStream()
-                stream = model.createStream()
+                result_text = stream.finishStream() # close decoding stream
+                audio_stream.stop_stream()          # stop audio stram before audio autput
+                say('Ich habe etwas erkannt', LANG)
                 print(f'=> Result: {result_text}')
+                audio_stream.start_stream()         # restart audio stram before audio autput
+                stream = model.createStream()       # ceate new decoding stream
 
         i += 1
 
