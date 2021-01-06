@@ -1,0 +1,1 @@
+Skill(name='Wetter', language='de-DE', package='weathe_ger.py', key='wetter')

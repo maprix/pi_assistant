@@ -1,0 +1,1 @@
+Skill(name='Zeit', language='de-DE', package='time_ger.py', key='uhrzeit')

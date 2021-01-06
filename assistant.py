@@ -24,6 +24,20 @@ SCORER_PATH = 'models/de/AASHISHAG/release_v0.9.0/kenlm.scorer'
 
 buffer_queue = SimpleQueue()
 
+class Skill:
+    def __init__(self, name, language, package, key):
+        self.name = name
+        self.language = language
+        self.package = package
+        self.key = key
+
+def init_skills():
+    skills_dir = os.getcwd() + '/skills'
+    os.chdir(skills_dir)
+    for f in os.listdir():
+        os.chdir(skills_dir + '/' + f)
+        skill_def = eval(open('definition.py').read())
+        print(f + ' : ' + skill_def.name + '; ' + skill_def.language)
 
 def audio_callback(in_data, frame_count, time_info, status_flags):
     buffer_queue.put(np.frombuffer(in_data, dtype='int16'))
@@ -48,6 +62,9 @@ def say(text, language='en-GB', file='output.wav'):
     p_status = p.wait()
 
 def main():
+    init_skills()
+    exit()
+
     model = deepspeech.Model(MODEL_PATH)
     model.setBeamWidth(BEAM_WIDTH)
     model.enableExternalScorer(SCORER_PATH)
